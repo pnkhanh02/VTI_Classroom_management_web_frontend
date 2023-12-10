@@ -1,0 +1,64 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Pari",
+      "address": "19 Lê Thanh Nghị",
+      "size": "12",
+      "note": "Phòng học có máy chiếu"
+    },
+    {
+      "id": 2,
+      "name": "Singapore",
+      "address": "19 Lê Thanh Nghị",
+      "size": "12",
+      "note": "Phòng học có máy chiếu"
+    },
+    {
+      "id": 3,
+      "name": "Big Data",
+      "address": "Duy Tân",
+      "size": "12",
+      "note": "Phòng học có máy chiếu"
+    },
+    {
+      "id": 4,
+      "name": "London",
+      "address": "19 Lê Thanh Nghị",
+      "size": "12",
+      "note": "Mễ Trì Hạ"
+    },
+    {
+      "id": 5,
+      "name": "Seoul",
+      "address": "19 Lê Thanh Nghị",
+      "size": "12",
+      "note": "Phòng học có máy chiếu"
+    }
+  ],
+  "pageable": {
+      "sort": {
+          "sorted": true,
+          "unsorted": false,
+          "empty": false
+      },
+      "pageNumber": 0,
+      "pageSize": 6,
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+  },
+  "totalPages": 5,
+  "totalElements": 15,
+  "last": false,
+  "numberOfElements": 6,
+  "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+  },
+  "number": 0,
+  "first": true,
+  "size": 6,
+  "empty": false
+}

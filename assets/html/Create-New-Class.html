@@ -1,0 +1,137 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+        <div class="col-lg-4 p-l-0 title-margin-left">
+            <div class="page-header">
+                <div class="page-title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a onclick="onclickHomePage()">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">New Class</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+    </div>
+    <!-- /# row -->
+    <h4>Create New Class</h4>
+    <section id="main-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-body">
+                    <div class="form-validation">
+                        <form class="row g-3" action="#" method="post">
+                            <div class="col-md-6">
+                                <label class="col-lg-4 col-form-label" for="val-username">Class Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="inputname" name="className"
+                                    placeholder="Enter a Class Name.." required maxlength="30"
+                                    minlength="6">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-lg-4 col-form-label" for="val-username">Start Date <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="inputstartdate" name="startDate"
+                                    placeholder="dd-mm-yyyy" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-lg-4 col-form-label" for="val-username">End Date <span
+                                        class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="inputenddate" name="endDate"
+                                    placeholder="dd-mm-yyyy" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="col-lg-4 col-form-label" for="val-username">Student Number <span
+                                        class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="inputStudentNumber" name="studentNumber"
+                                    placeholder="input student number" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-lg-4 col-form-label" for="val-username">Teaching Form <span
+                                        class="text-danger">*</span></label>
+
+                                <select class="form-control" id="inputteachingForm" name="teachingForm">
+                                    <option>OFFLINE</option>
+                                    <option>ONLINE</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-lg-4 col-form-label" for="val-username">Description <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="inputdescription" name="description" required>
+                            </div>
+                            <div class="col-12">
+                           
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-8 ml-auto">
+                                    <button type="button" class="btn btn-primary"
+                                   onclick="hidemodalclassSuccess()">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /# row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer">
+                    <p>2021 © Admin Board. -
+                        <a href="https://www.facebook.com/VTIAcademy/">https://www.facebook.com/VTIAcademy/</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" style="margin: auto;"><b style="color: #08298A">
+                        Class information you just created:</b></h3>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <li>Class Name : <span id="className"></span></li>
+                            <br>
+                            <li>Start Date : <span id="startDate"></span> </li>
+                            <br>
+                            <li>End Date : <span id="endDate"></span> </li>
+                            <br>
+                            <li>Student Number : <span id="studentNumber"></span></li>
+                            <br>
+                            <li>Teaching Form : <span id="teachingForm"></span> </li>
+                            <br>
+                            <li>Description : <span id="description"></span></li>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- data  -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="SaveCreateClass()">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>

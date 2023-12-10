@@ -1,0 +1,70 @@
+{
+  "content": [
+    {
+      "id":1,
+      "name": "Zoom 1",
+      "link": "https://zoom.us/j/94151331176?pwd=aC9BTDZMbW4wZkVwYUpjeUsrUlJoQT09",
+      "meetingId": "94151331176 ",
+      "passCode": "2023",
+      "description": "link zoom trống"
+    },
+    {
+      "id":2,
+      "name": "Zoom 2",
+      "link": "https://zoom.us/j/94151331176?pwd=aC9BTDZMbW4wZkVwYUpjeUsrUlJoQT09",
+      "meetingId": "94151331176 ",
+      "passCode": "2023",
+      "description": "link zoom trống",
+      "class":["Railway 59", "Railway 60"]
+    },
+    {
+      "id":3,
+      "name": "Zoom 3",
+      "link": "https://zoom.us/j/94151331176?pwd=aC9BTDZMbW4wZkVwYUpjeUsrUlJoQT09",
+      "meetingId": "94151331176 ",
+      "passCode": "2023",
+      "description": "link zoom trống"
+    },
+    {
+      "id":4,
+      "name": "Zoom 4",
+      "link": "https://zoom.us/j/94151331176?pwd=aC9BTDZMbW4wZkVwYUpjeUsrUlJoQT09",
+      "meetingId": "94151331176 ",
+      "passCode": "2023",
+      "description": "link zoom trống"
+    },
+    {
+      "id":5,
+      "name": "Zoom 5",
+      "link": "https://zoom.us/j/94151331176?pwd=aC9BTDZMbW4wZkVwYUpjeUsrUlJoQT09",
+      "meetingId": "94151331176 ",
+      "passCode": "2023",
+      "description": "link zoom trống"
+    }
+  ],
+  "pageable": {
+      "sort": {
+          "sorted": true,
+          "unsorted": false,
+          "empty": false
+      },
+      "pageNumber": 0,
+      "pageSize": 6,
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+  },
+  "totalPages": 3,
+  "totalElements": 15,
+  "last": false,
+  "numberOfElements": 5,
+  "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+  },
+  "number": 0,
+  "first": true,
+  "size": 6,
+  "empty": false
+}

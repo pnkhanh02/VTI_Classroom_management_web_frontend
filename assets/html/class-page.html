@@ -1,0 +1,268 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+        <div class="col-lg-4 p-l-0 title-margin-left">
+            <div class="page-header">
+                <div class="page-title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a onclick="onclickHomePage()">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" onclick="onclickViewClass()">Danh sách lớp học</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+    </div>
+    <h4>Danh sách lớp học</h4>
+    <!-- /# row -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <form>
+                    <div class="inbox-head">
+                        <form action="#" class="pull-right position">
+                            <div class="input-append inner-append">
+                                <input type="text" class="sr-input" id="seachname" placeholder="Search Class Name">
+                                <button class="btn sr-btn append-btn" type="button" id="seachname"
+                                    onclick="seachClass()"><i class="fa fa-search"></i></button>
+                                <div class="btn-group hidden-phone" style="float: right;">
+                                    <!-- <a data-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
+                                        filter <i class="fa fa-angle-down "></i></a>
+                                    <ul class="card-option-dropdown dropdown-menu">
+                                        <li><a href="#" id="begin" value="begin" onclick="filterbyBegin()">Begin</a></li>
+                                        <li><a href="#" id="waiting" onclick="filterbyWaiting()">Waiting</a></li>
+                                        <li><a href="#" id="accept" onclick="filterbyAccept()">Accept</a></li>
+                                    </ul> -->
+                                    <button type="button" class="btn btn-primary" onclick="addClass()">Thêm mới <i
+                                            class="fa fa-plus ml-2"></i> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Class Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Class Status</th>
+                            <th>Student Number</th>
+                            <th>Teaching Form</th>
+                            <!-- <th>Mentor Name</th> -->
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-class">
+                        <!-- data  -->
+                    </tbody>
+
+                </table>
+                <div style=" float: right;">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pagination-class">
+                            <!-- Phân trang -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="footer">
+            <p>2021 © Admin Board. -
+                <a href="https://www.facebook.com/VTIAcademy/">https://www.facebook.com/VTIAcademy/</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="./assets/js/class.js"></script>
+
+
+<!---------------------------------------- Modal Update-Create Account----------------------------------------->
+<div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Class Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <!-- /# row -->
+                    <form class="row g-3" action="#" method="post">
+                        <input type="hidden" id="cl-id" name="id">
+                        <!-- ----------1-------- -->
+                        <div class="col-md-12">
+                            <label class="col-lg-4 col-form-label" for="val-username">Class Name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="cl-name" name="className"
+                                placeholder="Nhập tên lớp" required maxlength="30" minlength="6">
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <label class="col-lg-4 col-form-label" for="val-username">Full name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="cl-fullName" name="startDate"
+                                placeholder="Nhập tên đầy đủ" required>
+                        </div> -->
+                        <!-- ----------2-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Ngày khai giảng<span
+                                    class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="cl-startDate" name="endDate"
+                                placeholder="dd-mm-yyyy" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Ngày kết thúc<span
+                                    class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="cl-endDate" name="endDate"
+                                placeholder="dd-mm-yyyy" required>
+                        </div>
+                        <!-- ----------3-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Trạng thái <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control" id="cl-classStatus" name="teachingForm">
+                                <option value="PENDING">PENDING</option>
+                                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                                <option value="CLOSED">CLOSED</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Hình thức giảng dạy <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control" id="cl-teachingForm" name="teachingForm">
+                                <option value="ONLINE">ONLINE</option>
+                                <option value="OFFLINE">OFFLINE</option>
+                                <option value="ALL">ALL</option>
+                            </select>
+                        </div>
+                        <!-- ----------4-------- -->
+                        <div class="col-md-12">
+                            <label class="col-lg-6 col-form-label" for="val-username">Mentor <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control" id="cl-mentor" name="teachingForm">
+                                <!-- <option value="ONLINE">Ước</option>
+                                <option value="OFFLINE">Ước 2</option>
+                                <option value="ALL">Ước 3</option> -->
+                            </select>
+                        </div>
+                        <!-- ----------5-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Phòng học <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control" id="cl-classRoomId" name="teachingForm">
+                                <!-- <option value="PENDING">Pari</option>
+                                <option value="IN_PROGRESS">ABC</option>
+                                <option value="CLOSED">ABC</option> -->
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Zoom<span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control" id="cl-zoomId" name="teachingForm">
+                                <!-- <option value="ONLINE">Zoom 1</option>
+                                <option value="OFFLINE">Zoom 2</option>
+                                <option value="ALL">Zoom 3</option> -->
+                            </select>
+                        </div>
+                        <!-- ----------6-------- -->
+                        <div class="col-12">
+                            <label class="col-lg-6 col-form-label" for="ac-information">Mô tả lớp học</label>
+                            <textarea id="cl-information" class="form-control input text-secondary" name="w3review"
+                                rows="4" cols="50" style="height: 80px;" placeholder="Nhập thông tin người dùng">
+                            </textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveClass()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------- Modal Delete ----------------------------------------->
+<div class="modal fade" id="confirmDeleteClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="classIdToDelete" name="id">
+                Bạn có chắc xoá lớp học?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteClass()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------- View Student ----------------------------------------->
+<div class="modal fade" id="viewStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Danh sách học viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>User</th>
+                            <th>Ngày sinh</th>
+                            <th>Địa chỉ</th>
+                            <th>Tên đầy đủ</th>
+                            <th>Role</th>
+                            <th>Số điện thoại</th>
+                            <th>Mail</th>
+                            <th>Facebook</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-account">
+                        <!-- data  -->
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

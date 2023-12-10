@@ -1,0 +1,199 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+        <div class="col-lg-4 p-l-0 title-margin-left">
+            <div class="page-header">
+                <div class="page-title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a onclick="onclickHomePage()">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" onclick="onclickViewClass()">Danh sách phòng học</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+    </div>
+    <h4>Danh sách phòng học</h4>
+    <!-- /# row -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <form>
+                    <div class="inbox-head">
+                        <form action="#" class="pull-right position">
+                            <div class="input-append inner-append">
+                                <input type="text" class="sr-input" id="seachname" placeholder="Search Class Name"
+                                onclick="searchClassRoom()">
+                                <button class="btn sr-btn append-btn" type="button" id="seachname"
+                                    onclick="searchClassRoom()"><i class="fa fa-search"></i></button>
+                                <div class="btn-group hidden-phone" style="float: right;">
+                                    <!-- <a data-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
+                                        filter <i class="fa fa-angle-down "></i></a>
+                                    <ul class="card-option-dropdown dropdown-menu">
+                                        <li><a href="#" id="begin" value="begin" onclick="filterbyBegin()">Begin</a></li>
+                                        <li><a href="#" id="waiting" onclick="filterbyWaiting()">Waiting</a></li>
+                                        <li><a href="#" id="accept" onclick="filterbyAccept()">Accept</a></li>
+                                    </ul> -->
+                                    <button type="button" class="btn btn-primary" 
+                              onclick="addRoom()">Thêm mới <i class="fa fa-plus ml-2"></i> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên phòng học</th>
+                            <th>Địa chỉ</th>
+                            <th>Sức chứa</th>
+                            <th>Ghi chú</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- data  -->
+                    </tbody>
+
+                </table>
+                <div style=" float: right;">
+                    <nav aria-label="Page navigation example" id="pagination-class-room">
+                        <ul class="pagination" id="pagination-room">
+                            <!-- <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#" onclick="Page1()">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#" onclick="Page2()" >2</a></li>
+                            <li class="page-item"><a class="page-link" href="#" onclick="Page3()">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li> -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="footer">
+            <p>2021 © Admin Board. -
+                <a href="https://www.facebook.com/VTIAcademy/">https://www.facebook.com/VTIAcademy/</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="./assets/js/classRoom.js"></script>
+
+<!---------------------------------------- Modal Update-Create Room----------------------------------------->
+<div class="modal fade" id="roomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Room Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <!-- /# row -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <li>
+                                                <input type="hidden" id="roomIdToSave" name="id">
+                                                <span>
+                                                    <b class="text-dark">
+                                                        Tên phòng học:
+                                                    </b>
+                                                </span>
+                                                <input type="text" class="form-control input text-secondary"
+                                                    name="studentNumber" placeholder="nhập tên phòng học" id="roomName"
+                                                    required>
+                                            </li>
+
+                                            <br>
+                                            <li>
+                                                <b class="text-dark">Địa chỉ : </b>
+                                                <input type="text" class="form-control input text-secondary"
+                                                    name="studentNumber" placeholder="Nhập địa chỉ phòng học" id="roomAddress" required>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <b class="text-dark">Sức chứa : </b>
+                                                <input type="text" class="form-control input text-secondary"
+                                                    name="studentNumber" placeholder="Nhập sức chứa" id="roomSize" required>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <b class="text-dark">Ghi chú : </b>
+                                                <!-- <input type="text" class="form-control input text-secondary"
+                                                    name="studentNumber" placeholder="input name" id="roomNote" required> -->
+                                                    <textarea id="roomNote" class="form-control input text-secondary" name="w3review" 
+                                                    rows="4" cols="50" style="height: 160px;" placeholder="Nhập ghi chú">
+                                                    </textarea>
+                                            </li>
+                                            <br>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveRoom()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------- Modal Delete ----------------------------------------->
+<div class="modal fade" id="confirmDeleteRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="roomIdToDelete" name="id">
+                Bạn có chắc xoá phòng học?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteRoom()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

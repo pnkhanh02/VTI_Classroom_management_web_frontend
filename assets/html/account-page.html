@@ -1,0 +1,210 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+        <div class="col-lg-4 p-l-0 title-margin-left">
+            <div class="page-header">
+                <div class="page-title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a onclick="onclickHomePage()">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" onclick="onclickViewClass()">Danh sách tài khoản</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+    </div>
+    <h4>Danh sách tài khoản</h4>
+    <!-- /# row -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <form>
+                    <div class="inbox-head">
+                        <form action="#" class="pull-right position">
+                            <div class="input-append inner-append">
+                                <input type="text" class="sr-input" id="seachname" placeholder="Search Class Name">
+                                <button class="btn sr-btn append-btn" type="button" id="seachname"
+                                    onclick="seachName()"><i class="fa fa-search"></i></button>
+                                <div class="btn-group hidden-phone" style="float: right;">
+                                    <button type="button" class="btn btn-primary" onclick="addAccount()">Thêm mới <i
+                                            class="fa fa-plus ml-2"></i> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>User</th>
+                            <th>Ngày sinh</th>
+                            <th>Địa chỉ</th>
+                            <th>Tên đầy đủ</th>
+                            <th>Role</th>
+                            <th>Số điện thoại</th>
+                            <th>Mail</th>
+                            <th>Facebook</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- data  -->
+                    </tbody>
+
+                </table>
+                <div style=" float: right;">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pagination-account">
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="footer">
+            <p>2021 © Admin Board. -
+                <a href="https://www.facebook.com/VTIAcademy/">https://www.facebook.com/VTIAcademy/</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="./assets/js/account.js"></script>
+
+
+<!---------------------------------------- Modal Update-Create Account----------------------------------------->
+<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Account Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <!-- /# row -->
+                    <form class="row g-3" action="#" method="post">
+                        <input type="hidden" id="ac-id" name="id">
+                        <!-- ----------1-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-4 col-form-label" for="val-username">User Name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="ac-username" name="className"
+                                placeholder="Nhập username" required maxlength="30" minlength="6">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-lg-4 col-form-label" for="val-username">Full name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="ac-fullName" name="startDate"
+                                placeholder="Nhập tên đầy đủ" required>
+                        </div>
+                        <!-- ----------2-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-4 col-form-label" for="val-username">Ngày sinh <span
+                                    class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="ac-birthDay" name="endDate"
+                                placeholder="dd-mm-yyyy" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Số điện thoại<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="ac-phoneNumber" name="studentNumber"
+                                placeholder="Nhập số điện thoại" required>
+                        </div>
+                        <!-- ----------3-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Chức danh <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-control" id="ac-role" name="teachingForm">
+                                <option value="STUDENT">STUDENT</option>
+                                <option value="MENTOR">MENTOR</option>
+                                <option value="TUTOR">TUTOR</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-lg-4 col-form-label" for="val-username">Địa chỉ <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="ac-address" name="description"
+                                placeholder="Nhập địa chỉ" required>
+                        </div>
+                        <!-- ----------4-------- -->
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Email<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="ac-email" name="studentNumber"
+                                placeholder="Nhập email" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Facebook<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="ac-facebook" name="studentNumber"
+                                placeholder="Nhập link facebook" required>
+                        </div>
+                         <!-- ----------5-------- -->
+                         <div class="col-md-6">
+                            <label class="col-lg-6 col-form-label" for="val-username">Lớp học</label>
+                            <select class="form-control" id="ac-class" name="teachingForm">
+                                <option value="">Chưa có lớp học hoặc không phải học viên</option>
+                            </select>
+                        </div>
+                        <!-- ----------6-------- -->
+                        <div class="col-12">
+                            <label class="col-lg-6 col-form-label" for="ac-information">Thôn tin người dùng</label>
+                            <textarea id="ac-information" class="form-control input text-secondary" name="w3review"
+                                rows="4" cols="50" style="height: 80px;" placeholder="Nhập thông tin người dùng">
+                            </textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveAccount()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------- Modal Delete ----------------------------------------->
+<div class="modal fade" id="confirmDeleteAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="accountIdToDelete" name="id">
+                Bạn có chắc xoá người dùng?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

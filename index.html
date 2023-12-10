@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Mentor Management Web</title>
+
+    <!-- Lưu ý: inmport J Query trước khi import bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <!-- icon w3shool -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Styles -->
+    <link href="assets/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
+    <link href="assets/css/lib/chartist/chartist.min.css" rel="stylesheet">
+    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/weather-icons.css" rel="stylesheet" />
+    <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/lib/helper.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/base.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo">
+                        <a href="/index.html">
+                            <img src="assets/images/[LOGO]VTI ACADEMY-01 (1).png" width="30%" alt="" />
+                        </a>
+                    </div>
+                    <li class="label"><i class="fas fa-pen"></i></i>Main</li>
+                    <li><a class="nav-link" id="home-page" onclick="onclickHomePage()" class="sideba"><i
+                                class="ti-home"></i> Home</a></li>
+                    <li class="label">Menu</li>
+                    <li><a class="nav-link" id="zoom-page" onclick="navToZoomPage()"><i class="ti-video-camera"></i>Danh
+                            sách Zoom</a> </li>
+                    <li><a class="nav-link" id="class-room-page" onclick="navToClassRoomPage()"><i
+                                class="ti-home"></i>Danh sách phòng học</a> </li>
+                    <li><a class="nav-link" id="class-page" onclick="onclickViewClass()"><i
+                                class="ti-briefcase "></i>Danh sách lớp học</a> </li>
+                    <li><a class="nav-link" id="account-page" onclick="navToAccountPage()"><i class="ti-user"></i>Danh
+                            sách tài khoản</a> </li>
+
+
+                    <li><a onclick="onclickCreateClass()"><i class="ti-menu"></i> New Class </a></li>
+
+                    <!-- <li><a href="Mentor-Info.html"><i class="ti-user"></i> Mentor Info</a></li> -->
+                    <li class="label">Request</li>
+
+                    <li><a onclick="onclickViewRequestClass()"><i class="ti-menu"></i><i class="ti-video-camera"></i>
+                            List Class Request</a> </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-left">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+                    <div class="float-right">
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <i class="ti-bell"></i>
+                                <div class="drop-down dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-content-heading">
+                                        <span class="text-left">Admin create new class</span>
+                                    </div>
+                                    <div class="dropdown-content-body">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <!-- <img class="pull-left m-r-10 avatar-img"
+                                                        src="assets/images/avatar/3.jpg" alt="" /> -->
+                                                    <div class="notification-content">
+                                                        <small class="notification-timestamp pull-right">02:34
+                                                            PM</small>
+                                                        <div class="notification-heading">Class Rocket 08</div>
+                                                        <div class="notification-text">5 members joined today </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <!-- <img class="pull-left m-r-10 avatar-img"
+                                                        src="assets/images/avatar/3.jpg" alt="" /> -->
+                                                    <div class="notification-content">
+                                                        <small class="notification-timestamp pull-right">02:34
+                                                            PM</small>
+                                                        <div class="notification-heading">Class Raiwall 05</div>
+                                                        <div class="notification-text">Create CV form VTI Academy</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="text-center">
+                                                <a href="#" class="more-link">See All</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <i class="ti-email"></i>
+                                <div class="drop-down dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-content-heading">
+                                        <span class="text-left">2 New Messages</span>
+                                        <a href="email.html">
+                                            <i class="ti-pencil-alt pull-right"></i>
+                                        </a>
+                                    </div>
+                                    <div class="dropdown-content-body">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <!-- <img class="pull-left m-r-10 avatar-img"
+                                                        src="assets/images/avatar/3.jpg" alt="" /> -->
+                                                    <div class="notification-content">
+                                                        <small class="notification-timestamp pull-right">02:34
+                                                            PM</small>
+                                                        <div class="notification-heading">Michael Qin</div>
+                                                        <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                            ...</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <!-- <img class="pull-left m-r-10 avatar-img"
+                                                        src="assets/images/avatar/2.jpg" alt="" /> -->
+                                                    <div class="notification-content">
+                                                        <small class="notification-timestamp pull-right">02:34
+                                                            PM</small>
+                                                        <div class="notification-heading">Mr. Soeng Souy</div>
+                                                        <div class="notification-text">Hi Teddy, Just wanted to let you
+                                                            ...</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="text-center">
+                                                <a href="#" class="more-link">See All</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <span class="user-avatar">
+                                    <span id="username-avatar"></span>
+                                    <i class="ti-angle-down f-s-10"></i>
+                                </span>
+                                <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-content-heading">
+                                        <span class="text-left">Upgrade Now</span>
+                                        <p class="trial-day">30 Days Trail</p>
+                                    </div>
+                                    <div class="dropdown-content-body">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="ti-user"></i>
+                                                    <span>Profile</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+                                                    <i class="ti-email"></i>
+                                                    <span>Inbox</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="ti-settings"></i>
+                                                    <span>Setting</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">
+
+                                                    <i class="ti-lock"></i>
+                                                    <span>Lock Screen</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <!-- <a data-toggle="modal" data-target="#myModal"><i
+                                                        class="ti-power-off"></i> Logout</a> -->
+                                                <a href="#">
+                                                    <i class="ti-power-off"></i>
+                                                    <span onclick="hideLogout()">Logout</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- form   -->
+    <div class="content-wrap">
+        <div class="main">
+
+        </div>
+    </div>
+    <!-- Modal Logout -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" style="margin: auto;"><b style="color: #08298A">
+                            Do you want to log out ?</b></h3>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="Logout()">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Success -->
+    <div class="alert alert-success fixed-bottom base-font" id="success-alert"
+        style="margin-top: 120px; display: none;">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong id="conten-success-alert"></strong>
+    </div>
+
+    <!-- Error Alert -->
+    <div class="alert alert-danger alert-dismissible fade show" id="error-alert"
+        style=" display: none; height: 60px;">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>Error!</strong> <span id="content-error-alert"></span>
+    </div>
+
+
+    <!-- jquery vendor -->
+    <script src="assets/js/lib/jquery.min.js"></script>
+    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="assets/js/lib/menubar/sidebar.js"></script>
+    <script src="assets/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <script src="program.js"></script>
+
+</body>
+
+</html>
