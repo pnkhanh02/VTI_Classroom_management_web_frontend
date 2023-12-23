@@ -1,8 +1,10 @@
+let role;
+
 $(function () {
     let currentLocation = window.location.href;
 
     $(".main").load("./assets/html/Home.html");
-    // checkLogin();
+    checkLogin();
 
 })
 
@@ -10,9 +12,10 @@ function checkLogin() {
     let username = localStorage.getItem("username");
     let token = localStorage.getItem("token");
 
-    if (!token && !currentLocation.includes("/login.html")) {
+    if (!token) {
         window.location.href = '/login.html';
     } else {
+        role = localStorage.getItem("role")
         document.getElementById("username-avatar").innerHTML = username;
     }
 }

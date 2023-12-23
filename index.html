@@ -216,12 +216,12 @@
                                                     <span>Lock Screen</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li onclick="hideLogout()">
                                                 <!-- <a data-toggle="modal" data-target="#myModal"><i
                                                         class="ti-power-off"></i> Logout</a> -->
                                                 <a href="#">
                                                     <i class="ti-power-off"></i>
-                                                    <span onclick="hideLogout()">Logout</span>
+                                                    <span>Logout</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -267,7 +267,7 @@
 
     <!-- Error Alert -->
     <div class="alert alert-danger alert-dismissible fade show" id="error-alert"
-        style=" display: none; height: 60px;">
+        style=" display: none; height: 60px; z-index: 10000;">
         <button type="button" class="close" data-dismiss="alert">x</button>
         <strong>Error!</strong> <span id="content-error-alert"></span>
     </div>

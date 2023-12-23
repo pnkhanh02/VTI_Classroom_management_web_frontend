@@ -22,7 +22,14 @@ this.name = name;
 $(function () {
     console.log(13123)
     buildZoomPage();
+    checkAdmin();
 })
+
+function checkAdmin(){
+    if(role != 'ADMIN'){
+        $('#zoom-add-button').empty();
+    }
+}
 
 function buildZoomPage() {
     zooms = [];
@@ -42,9 +49,9 @@ async function getListZoom() {
     $.ajax({
         url: apiZoom + "/search",
         type: "POST",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         data: JSON.stringify(request),
         error: function (err) {
@@ -76,7 +83,15 @@ function fillZoomToTable(json) {
     $('tbody').empty();
     var index = 1;
     console.log(zooms);
+
+    
     zooms.forEach(function (item) {
+
+        let actionAdmin = role == 'ADMIN' ? '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="editZoom(' +
+        item.id + ')"><i class="ti-pencil m-1 text-warning" style="font-size:24px; cursor: pointer;"></i></a>' +
+        '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="confirmDeleteZoom(' +
+        item.id + ')"><i class="ti-trash m-1 text-danger" style="font-size:24px; cursor: pointer;"></i></a>' +
+        '</td>' : '';
         $('tbody').append(
             '<tr>' +
             '<td>' + (index++) + '</td>' +
@@ -86,11 +101,8 @@ function fillZoomToTable(json) {
             '<td>' + item.passCode + '</td>' +
             '<td>' + item.description + '</td>' +
             '<td>' +
-            '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="editZoom(' +
-            item.id + ')"><i class="ti-pencil m-1 text-warning" style="font-size:24px; cursor: pointer;"></i></a>' +
-            '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="confirmDeleteZoom(' +
-            item.id + ')"><i class="ti-trash m-1 text-danger" style="font-size:24px; cursor: pointer;"></i></a>' +
-            '</td>' +
+            actionAdmin
+             +
             '</tr>'
         )
     });
@@ -208,14 +220,14 @@ function saveZoom() {
       $.ajax({
         url: api,
         type: method,
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         data: JSON.stringify(request),
-        error: function (err) {
+        error: function (err) { //http Status != 20x
           console.log(err)
-          showAlrtError("Lưu dữ liệu thất bại")
+          showAlrtError(err.responseJSON.message)
         },
         success: function (data) {
             $('#zoomModal').modal('hide')
@@ -253,9 +265,9 @@ function deleteZoom() {
     $.ajax({
         url: apiZoom + "/" + zoomId,
         type: "DELETE",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         // data: JSON.stringify(request),
         error: function (err) {
