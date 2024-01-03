@@ -3,55 +3,66 @@ let classList = [];
 let pageSizeAccount = 5;
 let pageNumberAccount = 1;
 let sortBy_Account = "id";
-let sortType_Account = "asc";
+let sortType_Account = "DESC";
+let apiAccount = "http://localhost:8686/api/v1/account";
 
-function SearchAccountRequest(pageSize, pageNumber, sortBy, sortType){
-    this.pageSize = pageSize;
-    this.pageNumber = pageNumber;
-    this.sortBy = sortBy;
-    this.sortType = sortType;
-    }
+let username = "";
+
+function SearchAccountRequest(pageSizeAccount, pageNumberAccount, sortBy_Account, sortType_Account,username){
+    this.pageSize = pageSizeAccount;
+    this.pageNumber = pageNumberAccount;
+    this.sortField = sortBy_Account;
+    this.sortType = sortType_Account;
+    this.username = username;
+}
 
 $(function () {
-    console.log(13123)
+    console.log(13123);
+    // getListAccount();
     buildAccountPage();
-    buildClassList();
+    // buildClassList();
+    buildClassToForm();
 })
 
-function buildClassList(){
-    classList = [];
-    getClassList();
-}
+// function buildClassList(){
+//     classList = [];
+//     getClassList();
+// }
 
-function getClassList(){
+// function getClassList(){
     // -------------------------------- CALL API GET ALL CLASS -------------------
 
-}
+// }
 
 function buildAccountPage(){
     accounts = [];
     getListAccount();
-    fetch('./assets/data/class.json')
-    .then((response) => response.json())
-    .then((json) =>{
-        fillClassToForm(json.content);
-    }
-    );
+    // fetch('./assets/data/class.json')
+    // .then((response) => response.json())
+    // .then((json) =>{
+    //     fillClassToForm(json.content);
+    // }
+    // );
 }
 
-function fillClassToForm(data){
-    if(data){
-        classList = data;
-    }
-    classList.forEach(function (item) {
-        $('#ac-class').append(
-            `<option value="`+item.id +`">`+item.className+`</option>`
-        )
-    });
+function seachName() {
+    pageNumberAccount = 1;
+    username = document.getElementById("seachname").value;
+    getListAccount();
 }
+// function fillClassToForm(data){
+//     if(data){
+//         classList = data;
+//     }
+//     classList.forEach(function (item) {
+//         $('#ac-class').append(
+//             `<option value="`+item.id +`">`+item.className+`</option>`
+//         )
+//     });
+// }
 // gọi api GetAllZoom
 async function getListAccount() {
-    let request = new SearchAccountRequest(pageSizeAccount, pageNumberAccount, sortBy_Account, sortType_Account);
+    let request = new SearchAccountRequest(pageSizeAccount, pageNumberAccount - 1, sortBy_Account, sortType_Account, username);
     // var url = "http://localhost:8080/api/v1/class?sortByClassName=true&sortByStartDate=true";
     // $.get(url, function (data, status) {
     //     //error
@@ -63,13 +74,32 @@ async function getListAccount() {
     //     console.log(class_s);
     //     filltoTable();
     // });
-    fetch('./assets/data/account.json')
-        .then((response) => response.json())
-        .then((json) =>{
-            fillAccountToTable(json.content);
-            buildPaginationAccount(json.number + 1, json.totalPages);
+
+    $.ajax({
+        url: apiAccount + "/search",
+        type: "POST",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        data: JSON.stringify(request),
+        error: function (err) {
+          console.log(err)
+          showAlrtError("Lấy danh sách account thất bại");
+        },
+        success: function (data) {
+            fillAccountToTable(data.content);
+            buildPaginationAccount(data.number + 1, data.totalPages);
         }
-        );
+      });  
+
+    // fetch('./assets/data/account.json')
+    //     .then((response) => response.json())
+    //     .then((json) =>{
+    //         fillAccountToTable(json.content);
+    //         buildPaginationAccount(json.number + 1, json.totalPages);
+    //     }
+    //     );
 }
 
 function fillAccountToTable(json) {
@@ -91,6 +121,7 @@ function fillAccountToTable(json) {
             '<td>' + item.role + '</td>' +
             '<td>' + item.phoneNumber + '</td>' +
             '<td>' + item.email + '</td>' +
+            // '<td>' + item.classEntity.className + '</td>' +
             '<td><a target="_blank" href=' + '"' + item.facebook + '"> ' + item.facebook + '<a/></td>' +
 
             '<td>' +
@@ -156,18 +187,18 @@ function buildPaginationAccount(number, totalPages) {
 }
 
 function chosePageAccount(page) {
-    event.preventDefault()
+    // event.preventDefault()
     pageNumberAccount = page;
     getListAccount();
 }
 function prePageAccount() {
-    event.preventDefault()
+    // event.preventDefault()
     pageNumberAccount--;
     getListAccount();
 }
 
 function nextPageAccount() {
-    event.preventDefault()
+    // event.preventDefault()
     pageNumberAccount++;
     getListAccount();
 }
@@ -191,7 +222,7 @@ function editAccount(accountId){
     $("#ac-email").val(account.email);
     $("#ac-facebook").val(account.facebook);
     $("#ac-information").val(account.information);
-    $("#ac-class").val(account.classId);
+    $("#ac-class").val(account.classEntity.id);
     $('#accountModal').modal('show')
 }
 
@@ -209,24 +240,72 @@ function saveAccount() {
     let information = $("#ac-information").val();
     let classId = $("#ac-class").val();
 // ---------------------------------- CALL API UPDATE OR CREATE ----------------------------------
-    let text = accountId ? "Update Account thành công" : "Thêm mới account thành công"
+    // let text = accountId ? "Update Account thành công" : "Thêm mới account thành công"
 
-    $('#accountModal').modal('hide')
-    showAlrtSuccess(text);
+    // $('#accountModal').modal('hide')
+    // showAlrtSuccess(text);
+    let request = {
+        "username": username,
+        "accountId": accountId,
+        "fullName": fullName,
+        "dateOfBirth": dateOfBirth,
+        "phoneNumber": phoneNumber,
+        "role": role,
+        "address": address,
+        "email": email,
+        "facebook": facebook,
+        "information": information,
+        "classEntityId": classId,
+    };
+
+    let api = accountId ? apiAccount +"/update" : apiAccount + "/create";
+    let method = accountId ? "PUT": "POST";
+    let  message = accountId ? "Update thành công" : "Thêm mới thành công"
+
+    $.ajax({
+        url: api,
+        type: method,
+        beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        data: JSON.stringify(request),
+        error: function (err) {
+        console.log(err)
+        showAlrtError("Update thất bại");
+        },
+        success: function (data) {
+            $('#accountModal').modal('hide')
+            showAlrtSuccess(message);
+            getListAccount();
+        }
+    });
 }
 
 function resetFromEditAccount(){
-    $('#ac-id').val("");
-    $('#ac-username').val("");
-    $('#ac-fullName').val("");
-    $("#ac-birthDay").val("");
-    $("#ac-phoneNumber").val("");
-    $("#ac-role").val("STUDENT");
-    $("#ac-address").append("");
-    $("#ac-email").val("");
-    $("#ac-facebook").val("");
-    $("#ac-information").val("");
-    $("#ac-class").val("");
+    // $('#ac-id').val("");
+    // $('#ac-username').val("");
+    // $('#ac-fullName').val("");
+    // $("#ac-birthDay").val("");
+    // $("#ac-phoneNumber").val("");
+    // $("#ac-role").val("STUDENT");
+    // $("#ac-address").append("");
+    // $("#ac-email").val("");
+    // $("#ac-facebook").val("");
+    // $("#ac-information").val("");
+    // $("#ac-class").val("");
+
+    document.getElementById("ac-id").value = "";
+    document.getElementById("ac-username").value = "";
+    document.getElementById("ac-fullName").value = "";
+    document.getElementById("ac-birthDay").value = "";
+    document.getElementById("ac-phoneNumber").value = "";
+    document.getElementById("ac-role").value = "";
+    document.getElementById("ac-address").value = "";
+    document.getElementById("ac-email").value = "";
+    document.getElementById("ac-facebook").value = "";
+    document.getElementById("ac-information").value = "";
+    document.getElementById("ac-class").value = "";
 }
 
 function confirmDeleteAccount(accountId) {
@@ -237,10 +316,59 @@ function confirmDeleteAccount(accountId) {
 function deleteAccount() {
     let accountId = document.getElementById("accountIdToDelete").value;
     console.log(accountId);
-    $('#confirmDeleteAccount').modal('hide')
+    // $('#confirmDeleteAccount').modal('hide')
 
 // ---------------------------------- CALL API DELETE ----------------------------------
 
-    showAlrtSuccess("Xoá account thành công!");
+    $.ajax({
+        url: apiAccount + "/" + accountId,
+        type: "DELETE",
+        beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        // data: JSON.stringify(request),
+        error: function (err) {
+        console.log(err)
+        showAlrtError("Delete Account Không thành công");
+        },
+        success: function (data) {
+            $('#confirmDeleteAccount').modal('hide')
+            showAlrtSuccess("Xoá Account thành công!");
+            getListAccount();
+        }
+    });
+    // showAlrtSuccess("Xoá account thành công!");
+}
+
+function buildClassToForm(){
+    // -------------------- CALL API Get All Class ----------------
+    $.ajax({
+        url: "http://localhost:8686/api/v1/classEntity/getAll",
+        type: "GET",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        error: function (err) {
+          console.log(err)
+          showAlrtError("Lấy danh sách Class thất bại")
+        },
+        success: function (data) {
+            fillClassToForm(data);
+        }
+    });
+    
+}
+
+function fillClassToForm(data){
+    if(data){
+        $('#ac-class').empty();
+        data.forEach(function (item) {
+            $('#ac-class').append(
+                `<option value="`+item.id +`">`+item.className+`</option>`
+            )
+        });
+    }
 }
 

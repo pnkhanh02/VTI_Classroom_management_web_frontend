@@ -1,5 +1,5 @@
 let classRooms = [];
-let pageSizeRoom = 3;
+let pageSizeRoom = 5;
 let pageNumberRoom = 1;
 let sortBy = "id";
 let sortType = "DESC";
@@ -28,6 +28,11 @@ $(function () {
     GetListClassRooms();
 })
 
+function buildClassRoomPage() {
+    classRooms = [];
+    GetListClassRooms();
+}
+
 function searchClassRoom() {
     // Sửa lại các biến tìm kiếm và phân trang
     pageNumberRoom = 1;
@@ -42,9 +47,9 @@ async function GetListClassRooms() {
     $.ajax({
         url: apiClassRoom + "/search-v2",
         type: "POST",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         data: JSON.stringify(request),
         error: function (err) {
@@ -117,7 +122,7 @@ function buildPaginationClassRoom(number, totalPages) {
         if (number === (index)) {
             $('#pagination-room').append(`<li class="page-item "><a class="page-link bg-primary">` + index + `</a></li>`);
         } else {
-            $('#pagination-room').append(`<li class="page-item"><a class="page-link"  onclick="chosePageRoom(` + index + `)">` + index + `</a></li>`);
+            $('#pagination-room').append(`<li class="page-item"><a class="page-link" onclick="chosePageRoom(` + index + `)">` + index + `</a></li>`);
         }
     }
 
@@ -133,7 +138,7 @@ function buildPaginationClassRoom(number, totalPages) {
     } else {
         $("#pagination-room").append(
             `<li class="page-item">
-            <a class="page-link"  aria-label="Next" onclick="nextPageRoom()">
+            <a class="page-link" aria-label="Next" onclick="nextPageRoom()">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
             </a>
@@ -172,13 +177,13 @@ function editRoom(roomId) {
     $('#roomModal').modal('show')
 }
 
-function Zoom(id, name, address, size, note) {
-    this.id = id;
-    this.name = name;
-    this.address = address;
-    this.size = size;
-    this.note = note;
-}
+// function Room(id, name, address, size, note) {
+//     this.id = id;
+//     this.name = name;
+//     this.address = address;
+//     this.size = size;
+//     this.note = note;
+// }
 
 function saveRoom() {
     // Lấy các thông số để lưu
@@ -187,16 +192,48 @@ function saveRoom() {
     let address = $("#roomAddress").val();
     let size = $("#roomSize").val();
     let note = $("#roomNote").val();
-    let room = new Zoom(id, name, address, size, note);
-    classRooms.push(room);
-    fillRoomToTable();
+
+    let request = {
+        "name": name,
+        "id": id,
+        "address": address,
+        "size": size,
+        "note": note
+    };
+
+    let api = id ? apiClassRoom +"/update" : apiClassRoom + "/create";
+    let method = id ? "PUT": "POST";
+    let  message = id ? "Update thành công" : "Thêm mới thành công"
+
+    $.ajax({
+        url: api,
+        type: method,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        data: JSON.stringify(request),
+        error: function (err) {
+          console.log(err)
+          showAlrtError("Update thất bại");
+        },
+        success: function (data) {
+            $('#roomModal').modal('hide')
+            showAlrtSuccess(message);
+            GetListClassRooms();
+        }
+      });
+
+    // let room = new Room(id, name, address, size, note);
+    // classRooms.push(room);
+    // fillRoomToTable();
     // --------------------- Kiểm tra id có giá trị -> call api UPDATE ROOM
     // --------------------- ko có giá trị id -> call api CREATE ROOM
 
-    $('#roomModal').modal('hide')
-    let text = id ? "Update thành công" : "Thêm mới thành công"
-    $('#roomModal').modal('hide')
-    showAlrtSuccess(text);
+    // $('#roomModal').modal('hide')
+    // let text = id ? "Update thành công" : "Thêm mới thành công"
+    // $('#roomModal').modal('hide')
+    // showAlrtSuccess(text);
 }
 
 function resetFormEditRoom() {
@@ -215,6 +252,25 @@ function confirmDeleteRoom(roomId) {
 function deleteRoom() {
     let roomId = document.getElementById("roomIdToDelete").value;
     console.log(roomId);
-    $('#confirmDeleteRoom').modal('hide')
-    showAlrtSuccess("Xoá phòng học thành công!");
+    $.ajax({
+        url: apiClassRoom + "/" + roomId,
+        type: "DELETE",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        // data: JSON.stringify(request),
+        error: function (err) {
+          console.log(err)
+          showAlrtError("Delete Không thành công");
+        },
+        success: function (data) {
+            $('#confirmDeleteRoom').modal('hide')
+            showAlrtSuccess("Xoá zoom thành công!");
+            GetListClassRooms();
+        }
+      });
+
+    // $('#confirmDeleteRoom').modal('hide')
+    // showAlrtSuccess("Xoá phòng học thành công!");
 }

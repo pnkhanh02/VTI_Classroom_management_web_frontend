@@ -2,7 +2,7 @@ let classList = [];
 let pageSizeClass = 5;
 let pageNumberClass = 1;
 let sortBy_Class = "id";
-let sortType_Class = "asc";
+let sortType_Class = "DESC";
 
 
 //Giao diện: 2 bước
@@ -46,9 +46,9 @@ async function getListClass() {
     $.ajax({
         url: apiClass + "/search",
         type: "POST",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         data: JSON.stringify(request),
         error: function (err) {
@@ -84,9 +84,9 @@ function filltoTable(json) {
             '<td>' + item.startDate + '</td>' +
             '<td>' + item.endDate + '</td>' +
             '<td>' + item.classStatus + '</td>' +
-            '<td>' + item.studentNumber + '</td>' +
+            // '<td>' + item.studentNumber + '</td>' +
             '<td>' + item.teachingForm + '</td>' +
-            // '<td>' + item.mentorName + '</td>' +
+            '<td>' + item.mentor.fullName + '</td>' +
             '<td>' + item.description + '</td>' +
 
             '<td>' +
@@ -94,8 +94,8 @@ function filltoTable(json) {
             item.id + ')"><i class="ti-pencil m-1 text-warning" style="font-size:24px; cursor: pointer;"></i></a>' +
             '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="confirmDeleteClass(' +
             item.id + ')"><i class="ti-trash m-1 text-danger" style="font-size:24px; cursor: pointer;"></i></a>' +
-            '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="viewStudent(' +
-            item.id + ')"><i class="ti-search m-1 text-primary" style="font-size:24px; cursor: pointer;"></i></a>' +
+            // '<a class="edit" title="go to  detail" data-toggle="tooltip" onclick="viewStudent(' +
+            // item.id + ')"><i class="ti-search m-1 text-primary" style="font-size:24px; cursor: pointer;"></i></a>' +
             '</td>' +
             '</tr>'
         )
@@ -154,18 +154,18 @@ function buildPaginationClass(number, totalPages) {
 }
 
 function chosePageClass(page) {
-    event.preventDefault()
+    // event.preventDefault()
     pageNumberClass = page;
     getListClass();
 }
 function prePageClass() {
-    event.preventDefault()
+    // event.preventDefault()
     pageNumberClass--;
     getListClass();
 }
 
 function nextPageClass() {
-    event.preventDefault()
+    // event.preventDefault()
     pageNumberClass++;
     getListClass();
 }
@@ -196,35 +196,94 @@ function editClass(classId){
 function saveClass() {
     // Lấy các thông số để lưu
     let accountId = $('#cl-id').val();
-    let username = $('#ac-username').val();
-    let fullName = $('#ac-fullName').val();
-    let dateOfBirth = $("#ac-birthDay").val();
-    let phoneNumber = $("#ac-phoneNumber").val();
-    let role = $("#ac-role").val();
-    let address = $("#ac-address").val();
-    let email = $("#ac-email").val();
-    let facebook = $("#ac-facebook").val();
-    let information = $("#ac-information").val();
-    let classId = $("#ac-class").val();
+    let name = $('#cl-name').val();
+    let startDate = $('#cl-startDate').val();
+    let endDate = $("#cl-endDate").val();
+    let classStatus = $("#cl-classStatus").val();
+    let teachingForm = $("#cl-teachingForm").val();
+    let mentor = $("#cl-mentor").val();
+    let classRoomId = $("#cl-classRoomId").val();
+    let zoomId = $("#cl-zoomId").val();
+    let information = $("#cl-information").val();
+    // let username = $('#ac-username').val();
+    // let fullName = $('#ac-fullName').val();
+    // let dateOfBirth = $("#ac-birthDay").val();
+    // let phoneNumber = $("#ac-phoneNumber").val();
+    // let role = $("#ac-role").val();
+    // let address = $("#ac-address").val();
+    // let email = $("#ac-email").val();
+    // let facebook = $("#ac-facebook").val();
+    // let information = $("#ac-information").val();
+    // let classId = $("#ac-class").val();
 // ---------------------------------- CALL API UPDATE OR CREATE ----------------------------------
-    let text = accountId ? "Update Class thành công" : "Thêm mới Class thành công"
 
-    $('#classModal').modal('hide')
-    showAlrtSuccess(text);
+    let request = {
+        "className": name,
+        "id": accountId,
+        "startDate": startDate,
+        "endDate": endDate,
+        "classStatus": classStatus,
+        "teachingForm": teachingForm,
+        "accountId": mentor,
+        "classRoomId": classRoomId,
+        "zoomId": zoomId,
+        "description": information,
+    };
+
+    let api = accountId ? apiClass +"/update" : apiClass + "/create";
+    let method = accountId ? "PUT": "POST";
+    let  message = accountId ? "Update thành công" : "Thêm mới thành công"
+
+    $.ajax({
+        url: api,
+        type: method,
+        beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        data: JSON.stringify(request),
+        error: function (err) {
+        console.log(err)
+        showAlrtError("Update thất bại");
+        },
+        success: function (data) {
+            $('#classModal').modal('hide')
+            showAlrtSuccess(message);
+            getListClass();
+        }
+    });
+
+
+
+    // let text = accountId ? "Update Class thành công" : "Thêm mới Class thành công"
+
+    // $('#classModal').modal('hide')
+    // showAlrtSuccess(text);
 }
 
 function resetFromEditClass(){
-    $('#ac-id').val("");
-    $('#ac-username').val("");
-    $('#ac-fullName').val("");
-    $("#ac-birthDay").val("");
-    $("#ac-phoneNumber").val("");
-    $("#ac-role").val("STUDENT");
-    $("#ac-address").append("");
-    $("#ac-email").val("");
-    $("#ac-facebook").val("");
-    $("#ac-information").val("");
-    $("#ac-class").val("");
+    // $('#ac-id').val("");
+    // $('#ac-username').val("");
+    // $('#ac-fullName').val("");
+    // $("#ac-birthDay").val("");
+    // $("#ac-phoneNumber").val("");
+    // $("#ac-role").val("STUDENT");
+    // $("#ac-address").append("");
+    // $("#ac-email").val("");
+    // $("#ac-facebook").val("");
+    // $("#ac-information").val("");
+    // $("#ac-class").val("");
+
+    document.getElementById("cl-id").value = "";
+    document.getElementById("cl-name").value = "";
+    document.getElementById("cl-startDate").value = "";
+    document.getElementById("cl-endDate").value = "";
+    document.getElementById("cl-classStatus").value = "";
+    document.getElementById("cl-teachingForm").value = "";
+    document.getElementById("cl-mentor").value = "";
+    document.getElementById("cl-classRoomId").value = "";
+    document.getElementById("cl-zoomId").value = "";
+    document.getElementById("cl-information").value = "";
 }
 
 function confirmDeleteClass(classId) {
@@ -235,9 +294,27 @@ function confirmDeleteClass(classId) {
 function deleteClass() {
     let classId = document.getElementById("classIdToDelete").value;
     console.log(classId);
-    $('#confirmDeleteClass').modal('hide')
+    // $('#confirmDeleteClass').modal('hide')
 // ---------------------------------- CALL API DELETE ----------------------------------
-    showAlrtSuccess("Xoá account thành công!");
+    $.ajax({
+        url: apiClass + "/" + classId,
+        type: "DELETE",
+        beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
+        contentType: "application/json",
+        // data: JSON.stringify(request),
+        error: function (err) {
+        console.log(err)
+        showAlrtError("Delete Class Không thành công");
+        },
+        success: function (data) {
+            $('#confirmDeleteClass').modal('hide')
+            showAlrtSuccess("Xoá Class thành công!");
+            getListClass();
+        }
+    });
+    // showAlrtSuccess("Xoá account thành công!");
 }
 
 function viewStudent(classId){
@@ -279,9 +356,9 @@ function buildMentorToForm(){
     $.ajax({
         url: "http://localhost:8686/api/v1/account/getAll-mentor",
         type: "GET",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         error: function (err) {
           console.log(err)
@@ -309,9 +386,9 @@ function buildClassRoomToForm(){
     $.ajax({
         url: "http://localhost:8686/api/v1/classRoom/getAll",
         type: "GET",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         error: function (err) {
           console.log(err)
@@ -339,18 +416,18 @@ function buildZoomToForm(){
     $.ajax({
         url: "http://localhost:8686/api/v1/zoom/getAll",
         type: "GET",
-        // beforeSend: function (xhr) {
-        //   xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
-        // },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"));
+        },
         contentType: "application/json",
         error: function (err) {
           console.log(err)
-          showAlrtError("Lấy danh sách Zoom thất bại")
+          showAlrtError("Lấy danh sách Class thất bại")
         },
         success: function (data) {
             fillZoomToForm(data);
         }
-      });
+    });
     
 }
 
